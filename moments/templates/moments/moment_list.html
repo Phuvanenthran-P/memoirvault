@@ -1,24 +1,57 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <title>My Moments</title>
+</head>
 <body>
 
-<h1>Your Moments</h1>
+<header>
+    <h1>Your Moments</h1>
 
-<p><a href="{% url 'logout' %}">Logout</a></p>
+    <nav>
+        <a href="{% url 'moment_create' %}">➕ Add Moment</a>
+        |
+        <a href="{% url 'logout' %}">Logout</a>
+    </nav>
 
-<ul>
-{% for m in moments %}
-    <li>
-        <strong>{{ m.title }}</strong> — {{ m.created_at }}<br>
-        {{ m.description }}<br>
-        {% if m.media %}
-            <a href="{{ m.media.url }}">{{ m.media.name }}</a>
-        {% endif %}
-    </li>
-{% empty %}
-    <li>No moments yet.</li>
-{% endfor %}
-</ul>
+    <hr>
+</header>
+
+<main>
+    <ul>
+    {% for m in moments %}
+        <li>
+            <h3>{{ m.title }}</h3>
+
+            <small>Created on {{ m.created_at|date:"d M Y" }}</small>
+
+            <p>{{ m.description }}</p>
+
+            {% if m.media %}
+                {% with m.media.url|lower as media_url %}
+                {% if ".jpg" in media_url or ".png" in media_url or ".jpeg" in media_url %}
+                    <img src="{{ m.media.url }}" width="200">
+                {% elif ".mp4" in media_url %}
+                    <video width="300" controls>
+                        <source src="{{ m.media.url }}">
+                    </video>
+                {% elif ".mp3" in media_url %}
+                     <audio controls>
+                        <source src="{{ m.media.url }}">
+                    </audio>
+                {% else %}
+                    <a href="{{ m.media.url }}">Download attachment</a>
+                {% endif %}
+                {% endwith %}
+            {% endif %}
+
+        </li>
+        <hr>
+    {% empty %}
+        <li>No moments yet. Start creating memories.</li>
+    {% endfor %}
+    </ul>
+</main>
 
 </body>
 </html>

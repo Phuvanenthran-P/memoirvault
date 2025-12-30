@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Add New Moment</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Moment</button>
+</form>
+
+<a href="{% url 'moment_list' %}">Back</a>
+
+</body>
+</html>

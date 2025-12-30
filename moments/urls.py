@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import moment_list
+from . import views
 
 urlpatterns = [
-    path("", moment_list, name="moment_list"),
+    path("", views.moment_list, name="moment_list"),
+    path("create/", views.moment_create, name="moment_create"),
 ]
