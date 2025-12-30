@@ -2,7 +2,6 @@
 <html>
 <body>
 <h2>Register</h2>
-
 <form method="post">
     {% csrf_token %}
     <input type="text" name="username" placeholder="Username" required><br>
@@ -12,8 +11,7 @@
 </form>
 
 {% for message in messages %}
-<p>{{ message }}</p>
+    <p style="color:red;">{{ message }}</p>
 {% endfor %}
-
 </body>
 </html>

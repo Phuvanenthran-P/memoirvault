@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html>
 <body>
+
 <h1>Your Moments</h1>
 
+<p><a href="{% url 'logout' %}">Logout</a></p>
+
 <ul>
-{% for moment in moments %}
+{% for m in moments %}
     <li>
-        <strong>{{ moment.title }}</strong><br>
-        {{ moment.description }}<br>
-        {{ moment.created_at }}
+        <strong>{{ m.title }}</strong> — {{ m.created_at }}<br>
+        {{ m.description }}<br>
+        {% if m.media %}
+            <a href="{{ m.media.url }}">{{ m.media.name }}</a>
+        {% endif %}
     </li>
 {% empty %}
     <li>No moments yet.</li>
 {% endfor %}
 </ul>
-
-<a href="{% url 'logout' %}">Logout</a>
 
 </body>
 </html>
