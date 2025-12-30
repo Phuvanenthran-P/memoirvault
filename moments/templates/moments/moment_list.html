@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Your Moments</h1>
+
+<ul>
+{% for moment in moments %}
+    <li>
+        <strong>{{ moment.title }}</strong><br>
+        {{ moment.description }}<br>
+        {{ moment.created_at }}
+    </li>
+{% empty %}
+    <li>No moments yet.</li>
+{% endfor %}
+</ul>
+
+<a href="{% url 'logout' %}">Logout</a>
+
+</body>
+</html>
