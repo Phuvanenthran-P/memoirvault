@@ -18,40 +18,45 @@
 </header>
 
 <main>
-    <ul>
-    {% for m in moments %}
-        <li>
-            <h3>{{ m.title }}</h3>
+    {% for moment in moments %}
+        <div style="margin-bottom: 30px;">
 
-            <small>Created on {{ m.created_at|date:"d M Y" }}</small>
+            <h3>{{ moment.title }}</h3>
+            <small>Created on {{ moment.created_at|date:"d M Y" }}</small>
 
-            <p>{{ m.description }}</p>
+            <p>{{ moment.description }}</p>
 
-            {% if m.media %}
-                {% with m.media.url|lower as media_url %}
-                {% if ".jpg" in media_url or ".png" in media_url or ".jpeg" in media_url %}
-                    <img src="{{ m.media.url }}" width="200">
-                {% elif ".mp4" in media_url %}
-                    <video width="300" controls>
-                        <source src="{{ m.media.url }}">
-                    </video>
-                {% elif ".mp3" in media_url %}
-                     <audio controls>
-                        <source src="{{ m.media.url }}">
-                    </audio>
-                {% else %}
-                    <a href="{{ m.media.url }}">Download attachment</a>
-                {% endif %}
+            {% if moment.media %}
+                {% with moment.media.url|lower as media_url %}
+                    {% if ".jpg" in media_url or ".png" in media_url or ".jpeg" in media_url %}
+                        <img src="{{ moment.media.url }}" width="250">
+                    {% elif ".mp4" in media_url %}
+                        <video width="300" controls>
+                            <source src="{{ moment.media.url }}">
+                        </video>
+                    {% elif ".mp3" in media_url %}
+                        <audio controls>
+                            <source src="{{ moment.media.url }}">
+                        </audio>
+                    {% else %}
+                        <a href="{{ moment.media.url }}" target="_blank">Download attachment</a>
+                    {% endif %}
                 {% endwith %}
             {% endif %}
 
-        </li>
+            <br><br>
+
+            <a href="{% url 'moment_update' moment.id %}">Edit</a>
+            |
+            <a href="{% url 'moment_delete' moment.id %}">Delete</a>
+
+        </div>
         <hr>
     {% empty %}
-        <li>No moments yet. Start creating memories.</li>
+        <p>No moments yet. Start creating memories.</p>
     {% endfor %}
-    </ul>
 </main>
+
 
 </body>
 </html>
