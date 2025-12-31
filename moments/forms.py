@@ -8,12 +8,9 @@ class MomentForm(forms.ModelForm):
             "title",
             "description",
             "media",
-            "special_date",
-            "remind_me",
+            "memory_date",
+            "is_annual",
         ]
-
-    def clean_title(self):
-        title = self.cleaned_data.get("title")
-        if len(title) < 3:
-            raise forms.ValidationError("Title must be at least 3 characters.")
-        return title
+        widgets = {
+            "memory_date": forms.DateInput(attrs={"type": "date"})
+        }

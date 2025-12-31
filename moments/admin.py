@@ -1,9 +1,25 @@
 from django.contrib import admin
 from .models import Moment
 
-
 @admin.register(Moment)
 class MomentAdmin(admin.ModelAdmin):
-    list_display = ("title", "owner", "created_at")
-    list_filter = ("created_at", "remind_me")
-    search_fields = ("title", "owner__username")
+    list_display = (
+        "title",
+        "user",
+        "memory_date",
+        "is_annual",
+        "created_at",
+    )
+
+    list_filter = (
+        "is_annual",
+        "memory_date",
+        "created_at",
+    )
+
+    search_fields = (
+        "title",
+        "description",
+    )
+
+    ordering = ("-created_at",)
